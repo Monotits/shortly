@@ -21,4 +21,5 @@ dio: ^4.0.0
 Uygulamada öncelikle welcome ekranı ve onboarding ekranları hazırlanmıştır. Svg dosyaları için flutter_svg paketi kullanılmıştır. Onboarding ekranı 3 bölüm halinde planlanmıştır. 
 Tanıtım ekranlarının ardından uygulamanın ana işlevinin olduğu ekranlar hazırlanmıştır. Dio paketi ile post/get işlemleri yapılmıştır. Ardından elde edilen json parse edilerek gerekli bölümler listelere eklenmiştir. Provider paketi ile state yönetimi sağlanmış ve kullanıcı deneyimi iyileştirilmiştir.
 
-# Shortly App
+
+
