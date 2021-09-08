@@ -159,6 +159,8 @@ class _InputPageState extends State<InputPage> {
                       ),
                     ),
                     SingleChildScrollView(
+                      padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom),
                       child: Column(
                         children: [
                           SizedBox(
@@ -189,7 +191,14 @@ class _InputPageState extends State<InputPage> {
                                     border: InputBorder.none,
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
-                                          color: colorBorder, width: 5.0),
+                                          color: _text.text == ''
+                                              ? colorBorder
+                                              : Colors.transparent,
+                                          width: 5.0),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.transparent),
                                     ),
                                     hintText:
                                         hintText, //"Shorten a link here..",
