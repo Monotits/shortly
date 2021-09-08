@@ -21,6 +21,7 @@ class _InputPageState extends State<InputPage> {
   String url = '';
   String hintText = 'Shorten a link here..';
   var hintTextStyle = TextStyle(fontSize: 15, color: Color(0xff89B0AE));
+  Color colorBorder = Colors.transparent;
 
   @override
   void dispose() {
@@ -36,186 +37,178 @@ class _InputPageState extends State<InputPage> {
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.grey.shade200,
       body: SingleChildScrollView(
-        padding:
-            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-        child: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                height: 10,
-              ),
-              urlProvider.urlShortList.isEmpty
-                  ? Column(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SizedBox(
+              height: 10,
+            ),
+            urlProvider.urlShortList.isEmpty
+                ? Column(
+                    children: [
+                      titleTopWidget(),
+                      svgWidget(),
+                      centerTextWidget(),
+                    ],
+                  )
+                : Container(
+                    height: 470,
+                    child: Column(
                       children: [
-                        titleTopWidget(),
-                        svgWidget(),
-                        centerTextWidget(),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          'Your Link History',
+                          style: inputPageTitle,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        SizedBox(
+                          height: 410,
+                          child: ListView.builder(
+                            itemCount: urlProvider.urlShortList.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 20.0, right: 20, top: 10, bottom: 10),
+                                child: Container(
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  height: 150,
+                                  width: 100,
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 20, right: 20),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              urlProvider.urlLongList[index],
+                                              style: inputPageShortUrl,
+                                            ),
+                                            SizedBox(
+                                              height: 20,
+                                              width: 20,
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  urlProvider.removeItem(index);
+                                                },
+                                                child: SvgPicture.asset(
+                                                  svgAssetsPath[0],
+                                                  alignment:
+                                                      Alignment.centerRight,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Divider(),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 20, right: 20),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              urlProvider.urlShortList[index],
+                                              style: inputPageLongUrl,
+                                            ),
+                                            SizedBox(
+                                              width: 1,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      copyButtonWidget(index)
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        )
                       ],
-                    )
-                  : Container(
-                      height: 470,
+                    ),
+                  ),
+            SizedBox(
+              height: 20,
+            ),
+            Container(
+                height: 145,
+                color: Color(0xFF302B41),
+                child: Stack(
+                  children: [
+                    SizedBox(
+                      height: 120,
+                      width: double.infinity,
+                      child: SvgPicture.asset(
+                        svgAssetsPath[3],
+                        alignment: Alignment.centerRight,
+                        height: 300,
+                      ),
+                    ),
+                    SingleChildScrollView(
                       child: Column(
                         children: [
                           SizedBox(
-                            height: 20,
+                            height: 15,
                           ),
-                          Text(
-                            'Your Link History',
-                            style: inputPageTitle,
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          SizedBox(
-                            height: 410,
-                            child: ListView.builder(
-                              itemCount: urlProvider.urlShortList.length,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 20.0,
-                                      right: 20,
-                                      top: 10,
-                                      bottom: 10),
-                                  child: Container(
-                                    padding: EdgeInsets.all(10),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    height: 150,
-                                    width: 100,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 20, right: 20),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                urlProvider.urlLongList[index],
-                                                style: inputPageShortUrl,
-                                              ),
-                                              SizedBox(
-                                                height: 20,
-                                                width: 20,
-                                                child: GestureDetector(
-                                                  onTap: () {
-                                                    urlProvider
-                                                        .removeItem(index);
-                                                  },
-                                                  child: SvgPicture.asset(
-                                                    svgAssetsPath[0],
-                                                    alignment:
-                                                        Alignment.centerRight,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Divider(),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 20, right: 20),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                urlProvider.urlShortList[index],
-                                                style: inputPageLongUrl,
-                                              ),
-                                              SizedBox(
-                                                width: 1,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        copyButtonWidget(index)
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                  height: 150,
-                  color: Color(0xFF302B41),
-                  child: SingleChildScrollView(
-                    child: Stack(
-                      children: [
-                        SizedBox(
-                          height: 120,
-                          width: double.infinity,
-                          child: SvgPicture.asset(
-                            svgAssetsPath[3],
-                            alignment: Alignment.centerRight,
-                            height: 300,
-                          ),
-                        ),
-                        Column(
-                          children: [
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Form(
-                              key: formKey,
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                  left: 35.0,
-                                  right: 35,
-                                  bottom: 5,
+                          Form(
+                            key: formKey,
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                left: 35.0,
+                                right: 35,
+                                bottom: 5,
+                              ),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: Colors.white,
                                 ),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
-                                    color: Colors.white,
-                                  ),
-                                  child: TextFormField(
-                                    autocorrect: false,
-                                    textAlign: TextAlign.center,
-                                    controller: _text,
-                                    autofocus: false,
-                                    onChanged: (value) {
-                                      setState(() {});
-                                    },
-                                    decoration: InputDecoration(
-                                      hintText:
-                                          hintText, //"Shorten a link here..",
-                                      hintStyle: hintTextStyle,
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.transparent),
-                                      ),
+                                child: TextFormField(
+                                  autocorrect: false,
+                                  textAlign: TextAlign.center,
+                                  controller: _text,
+                                  //autofocus: false,
+                                  onChanged: (value) {
+                                    setState(() {});
+                                  },
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: colorBorder, width: 5.0),
                                     ),
+                                    hintText:
+                                        hintText, //"Shorten a link here..",
+                                    hintStyle: hintTextStyle,
                                   ),
                                 ),
                               ),
                             ),
-                            buttonWidget(),
-                            SizedBox(
-                              height: MediaQuery.of(context).viewInsets.bottom,
-                            ),
-                          ],
-                        ),
-                      ],
+                          ),
+                          buttonWidget(),
+                          SizedBox(
+                            height: MediaQuery.of(context).viewInsets.bottom,
+                          ),
+                        ],
+                      ),
                     ),
-                  ))
-            ],
-          ),
+                  ],
+                ))
+          ],
         ),
       ),
     ));
@@ -303,12 +296,15 @@ class _InputPageState extends State<InputPage> {
               primary: Color(0xff2BD0D0),
               textStyle: TextStyle(fontWeight: FontWeight.bold)),
           onPressed: () {
+            //print(colorBorder);
             setState(() {
               if (_text.text == '') {
                 hintText = 'Please add a link here';
+                colorBorder = Color(0xFFDF1111);
                 hintTextStyle =
                     TextStyle(fontSize: 15, color: Color(0xFFF81D1D));
               }
+              //print(colorBorder);
               url = _text.text;
               _text.text.isEmpty ? _validate = true : _validate = false;
             });
