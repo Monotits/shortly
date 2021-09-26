@@ -21,5 +21,6 @@ Tanıtım ekranlarının ardından uygulamanın ana işlevinin olduğu ekranlar 
 
 
 
-* Uygulama, Iphone SE (2nd Generation) emülatörü üzerinde test edilerek geliştirilmiştir. Kısıtlı zaman nedeniyle responsive tasarım özelliği sunmaz. 
-* Uygulama ekran görüntülerine ve video içeriklerine App_Shortly klasöründen ulaşılabilir. 
+* Uygulama, Iphone SE (2nd Generation) emülatörü üzerinde test edilerek geliştirilmiştir. 
+* Uygulama ekran görüntülerine ve video içeriklerine media klasöründen ulaşılabilir. 
+
